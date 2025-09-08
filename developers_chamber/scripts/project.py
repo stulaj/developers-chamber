@@ -61,6 +61,11 @@ default_containers_install_command = (
     if os.environ.get("PROJECT_DOCKER_COMPOSE_CONTAINERS_INSTALL_COMMAND")
     else None
 )
+default_containers_env = (
+    os.environ.get("PROJECT_DOCKER_COMPOSE_CONTAINERS_ENV")
+    if os.environ.get("PROJECT_DOCKER_COMPOSE_CONTAINERS_ENV")
+    else None
+)
 default_library_dir = os.environ.get("PROJECT_LIBRARY_DIR")
 
 jira_url = os.environ.get("JIRA_URL")
@@ -137,7 +142,7 @@ def set_domain(domain):
     "env",
     help="Environment variables",
     type=ContainerEnvironment(),
-    default=None,
+    default=default_containers_env,
 )
 def build(project_name, compose_file, container, container_dir_to_copy, env):
     """
@@ -183,7 +188,7 @@ def build(project_name, compose_file, container, container_dir_to_copy, env):
     "env",
     help="Environment variables",
     type=ContainerEnvironment(),
-    default=None,
+    default=default_containers_env,
 )
 @click.pass_context
 def run(ctx, project_name, compose_file, container, command, env):
@@ -231,7 +236,7 @@ def run(ctx, project_name, compose_file, container, command, env):
     "env",
     help="Environment variables",
     type=ContainerEnvironment(),
-    default=None,
+    default=default_containers_env,
 )
 @click.pass_context
 def exec_command(ctx, project_name, compose_file, container, command, env):
@@ -284,7 +289,7 @@ def exec_command(ctx, project_name, compose_file, container, command, env):
     "env",
     help="Environment variables",
     type=ContainerEnvironment(),
-    default=None,
+    default=default_containers_env,
 )
 def up(project_name, compose_file, container, all_containers, env):
     """
