@@ -250,7 +250,7 @@ def copy_containers_dirs(project_name, containers_dir_to_copy=None, containers=N
 def compose_build(
     project_name, compose_files, containers=None, containers_dir_to_copy=None, env=None
 ):
-    _call_compose_command(project_name, compose_files, "build", containers, env)
+    _call_compose_command(project_name, compose_files, "build", containers, env=env)
 
     if containers_dir_to_copy:
         copy_containers_dirs(project_name, containers_dir_to_copy, containers)
@@ -264,14 +264,14 @@ def compose_run(project_name, compose_files, containers, command, env=None):
             ["run", "--use-aliases"],
             [container],
             command,
-            env,
+            env=env,
         )
 
 
 def compose_exec(project_name, compose_files, containers, command, env=None):
     for container in containers:
         _call_compose_command(
-            project_name, compose_files, "exec", [container], command, env
+            project_name, compose_files, "exec", [container], command, env=env
         )
 
 
@@ -281,7 +281,7 @@ def compose_kill_all():
 
 
 def compose_up(project_name, compose_files, containers, env=None):
-    _call_compose_command(project_name, compose_files, "up", containers, env)
+    _call_compose_command(project_name, compose_files, "up", containers, env=env)
 
 
 def compose_stop(project_name, compose_files, containers):
